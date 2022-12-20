@@ -1,10 +1,10 @@
-# Release-Process
+# Release Process
 
 The release process of a new version can roughly be divided in three steps:
 
 * Preparation
 * Triggering of a versioned image build
-* Release of a new helm chart version
+* Build of a versioned image
 * Merge upstream to eclipse-tractusx
 
 The process builds on the development flow which takes place within the forks from eclipse-tractusx, located in the catenax-ng organization.
