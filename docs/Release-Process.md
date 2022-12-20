@@ -1,10 +1,11 @@
 # Release Process
 
-The release process of a new version can roughly be divided in three steps:
+The release process for a new version can roughly be divided in five steps:
 
 * Preparation
 * Triggering of a versioned image build
 * Build of a versioned image
+* Release of a new helm chart version
 * Merge upstream to eclipse-tractusx
 
 The process builds on the development flow which takes place within the forks from eclipse-tractusx, located in the catenax-ng organization.
@@ -68,7 +69,7 @@ It's important to pull the latest state from main of every repository.
 Then a tag for the released version needs (e.g v0.10.0) created and pushed.
 The push triggers the release workflow action (available in every repository) which creates the versioned image/s.
 
-## Release new version of helm chart
+## Release of a new helm chart version
 
 Once the versioned images are available, they can be referenced in the portal helm chart and a new version of the chart can be released.
 The consortia specific helm chart is released from the 'helm environments' branch available in the https://github.com/catenax-ng/tx-portal-cd fork.
