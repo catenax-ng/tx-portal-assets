@@ -3,7 +3,6 @@
 The release process for a new version can roughly be divided in five steps:
 
 * Preparation
-* Triggering of a versioned image build
 * Build of a versioned image
 * Release of a new helm chart version
 * Merge upstream to eclipse-tractusx
@@ -26,7 +25,7 @@ It's recommended to do step 1-3 in one preparatory pull request to main, or dev 
 
 The changelog file tracks all notable changes since the last released version.
 During development every developer should extend the changelog under the 'Unreleased' section when raising a pull request to main or dev.
-Once a new version is ready to be released, the changelog of the version gets finalized and the release version for the up to then unreleased changes gets set.
+Once a new version is ready to be released, the changelog of the version gets finalized and the release version for the, up to then, unreleased changes gets set.
 The following convention is a good practice for a clearly structured changelog:
 https://keepachangelog.com/en/1.0.0/
 
@@ -52,7 +51,7 @@ Only commit the updated dependencies file, not the 'DEPENDENCIES-PREP' file.
 
 3. Version bump (frontend repos only)
 
-The version in 'package.json' files needs to bumped, the following statement can be used:
+The version in the 'package.json' files needs to get bumped, the following statement can be used:
 
 ```bash
 yarn version
@@ -60,14 +59,14 @@ yarn version
 
 4. Merge from dev into main branch
 
-The merge from dev into main needs to happen before releasing.
+The merge from dev into main, via pull request, needs to happen before releasing.
 This is only necessary for repositories with a dev branch e.g., tx-portal-frontend and tx-portal-frontend-registration.
 
 ## Build of a versioned image
 
 It's important to pull the latest state from main of every repository.
-Then a tag for the released version needs (e.g v0.10.0) created and pushed.
-The push triggers the release workflow action (available in every repository) which creates the versioned image/s.
+Then a tag for the released version (e.g. v0.10.0) needs to be created and pushed.
+The push of the tag triggers the release workflow action (available in every repository) which creates the versioned image/s.
 
 ## Release of a new helm chart version
 
