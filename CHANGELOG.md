@@ -4,7 +4,7 @@
 * Documentation v2 released
 
 ### Feature
-* Static Page contents for portal company role and use case introductions released as part of assets/contents
+* Static page contents for portal company role and use case introductions released as part of assets/contents
 
 ### Technical Support
 * n/a
