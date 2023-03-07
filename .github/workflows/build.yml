@@ -23,7 +23,6 @@ on:
   push:
     branches:
       - 'main'
-      - 'bug/fix_cve-2022-1304'
 
 env:
   REGISTRY: ghcr.io
