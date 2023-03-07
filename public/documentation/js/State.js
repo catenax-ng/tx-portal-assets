@@ -80,6 +80,9 @@ class State {
     }
 
     setSelection(selection, hash) {
+        if (selection.includes('#')) {
+            [selection, hash] = selection.split('#')
+        }
         //console.log(this.clazz, 'setSelection', selection, hash)
         selection = (this.data.map && this.data.map.hasOwnProperty(selection)) ? selection : NavTools.getRoot()
         if (selection === this.selection && !this.refresh)
