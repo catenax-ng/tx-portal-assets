@@ -80,6 +80,9 @@ class State {
     }
 
     setSelection(selection, hash) {
+        if (!selection) {
+            return this
+        }
         if (selection.includes('#')) {
             [selection, hash] = selection.split('#')
         }

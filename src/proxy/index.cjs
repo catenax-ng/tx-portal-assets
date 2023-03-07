@@ -17,11 +17,10 @@
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
 
-const express = require('express')
 const { createProxyMiddleware } = require('http-proxy-middleware')
-const app = express()
-app.disable('x-powered-by')
-app.use(['/assets', '/documentation'], createProxyMiddleware({ target: 'http://localhost:3003', changeOrigin: true }))
-app.use(['/registration/'], createProxyMiddleware({ target: 'http://127.0.0.1:3002/', changeOrigin: true }))
-app.use(['/'], createProxyMiddleware({ target: 'http://127.0.0.1:3001/', changeOrigin: true }))
-app.listen(3000, '0.0.0.0')
+require('express')()
+  .disable('x-powered-by')
+  .use(['/assets', '/documentation'], createProxyMiddleware({ target: 'http://127.0.0.1:3003', changeOrigin: true }))
+  .use(['/registration/'], createProxyMiddleware({ target: 'http://127.0.0.1:3002/', changeOrigin: true }))
+  .use(['/'], createProxyMiddleware({ target: 'http://127.0.0.1:3001/', changeOrigin: true }))
+  .listen(3000)
