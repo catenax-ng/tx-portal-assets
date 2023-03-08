@@ -21,7 +21,7 @@
   Main ingress controller for running the portal on http://localhost:3000/
 
   A tiny reverse proxy server to forward portal frontend browser requests on localhost to
-  the according applications. Expects the different instances running on ports 3001-3003.
+  the according applications. Expects the frontend processes are running on ports 3001-3003.
 */
 
 const { createProxyMiddleware } = require('http-proxy-middleware')
