@@ -18,8 +18,7 @@
  ********************************************************************************/
 
 /*
-  Main ingress controller for running the portal on http://localhost:3000/
-
+  Main ingress controller for running the complete portal frontend on http://localhost:3000/
   A tiny reverse proxy server to forward portal frontend browser requests on localhost to
   the according applications. Expects the frontend processes are running on ports 3001-3003.
 */
