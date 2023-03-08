@@ -17,10 +17,22 @@
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
 
+/*
+  Main ingress controller for running the portal on http://localhost:3000/
+
+  A tiny reverse proxy server to forward portal frontend browser requests on localhost to
+  the according applications. Expects the different instances running on ports 3001-3003.
+*/
+
 const { createProxyMiddleware } = require('http-proxy-middleware')
+
+const PROXY_PORTAL = createProxyMiddleware({ target: 'http://127.0.0.1:3001', changeOrigin: true })
+const PROXY_REGIST = createProxyMiddleware({ target: 'http://127.0.0.1:3002', changeOrigin: true })
+const PROXY_ASSETS = createProxyMiddleware({ target: 'http://127.0.0.1:3003', changeOrigin: true })
+
 require('express')()
   .disable('x-powered-by')
-  .use(['/assets', '/documentation'], createProxyMiddleware({ target: 'http://127.0.0.1:3003', changeOrigin: true }))
-  .use(['/registration/'], createProxyMiddleware({ target: 'http://127.0.0.1:3002/', changeOrigin: true }))
-  .use(['/'], createProxyMiddleware({ target: 'http://127.0.0.1:3001/', changeOrigin: true }))
+  .use(['/assets', '/documentation'], PROXY_ASSETS)
+  .use(['/registration/'], PROXY_REGIST)
+  .use(['/'], PROXY_PORTAL)
   .listen(3000)
