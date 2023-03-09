@@ -20,7 +20,7 @@
 # Depending on the location of your Docker container
 # you need to change the path to the specific Docker registry.
 #
-name: "Trivy Stable"
+name: "Trivy Main"
 
 on:
   push:
@@ -90,7 +90,7 @@ jobs:
         uses: aquasecurity/trivy-action@master
         with:
           # Path to Docker image
-          image-ref: "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest"
+          image-ref: "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main"
           format: "sarif"
           output: "trivy-results2.sarif"
           exit-code: "1"
