@@ -19,19 +19,19 @@
 
 /*
   Main ingress controller for running the complete portal frontend on http://localhost:3000/
-  A tiny reverse proxy server to forward portal frontend browser requests on localhost to
-  the according applications. Expects the frontend processes are running on ports 3001-3003.
+  A tiny reverse proxy server to forward portal frontend requests from localhost port 3000 to the
+  according local web server instances. Expects these processes are running on ports 3001-3003.
 */
 
 const { createProxyMiddleware } = require('http-proxy-middleware')
 
 const PROXY_PORTAL = createProxyMiddleware({ target: 'http://127.0.0.1:3001', changeOrigin: true })
-const PROXY_REGIST = createProxyMiddleware({ target: 'http://127.0.0.1:3002', changeOrigin: true })
+const PROXY_REGAPP = createProxyMiddleware({ target: 'http://127.0.0.1:3002', changeOrigin: true })
 const PROXY_ASSETS = createProxyMiddleware({ target: 'http://127.0.0.1:3003', changeOrigin: true })
 
 require('express')()
   .disable('x-powered-by')
   .use(['/assets', '/documentation'], PROXY_ASSETS)
-  .use(['/registration/'], PROXY_REGIST)
+  .use(['/registration/'], PROXY_REGAPP)
   .use(['/'], PROXY_PORTAL)
   .listen(3000)
