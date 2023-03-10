@@ -15,6 +15,10 @@ The Catena-X Portal is designed to work with the [Catena-X IAM](https://github.c
 
 ## Steps to run local
 
+Note: if you like to run the complete frontend environment follow the guide in the documentation how to start an entire
+[Local Frontend Environment](https://portal.dev.demo.catena-x.net/documentation/?path=developer%2FTechnical+Documentation%2FDev+Process%2F05.+Frontend+Environment.md)
+
     yarn
+    yarn build:release
     yarn build
     yarn start
