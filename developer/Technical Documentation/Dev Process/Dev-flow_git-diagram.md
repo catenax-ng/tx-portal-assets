@@ -1,6 +1,4 @@
-# Development / Deployment (CI/CD)
-
-## Git diagram
+# Dev flow (git diagram)
 
 ```mermaid
 %%{init: { 'logLevel': 'debug', 'theme': 'base' } }%%
@@ -33,12 +31,12 @@ gitGraph
     checkout dev
     merge feature/feature1
     branch release/1.1.0 order: 6
-    commit id: "release(1.1.0): prepare migration (backend)"
+    commit id: "release(1.1.0): aggregate migrations (backend)"
     commit id: "release(1.1.0): update version, changelog..." tag: "1.1.0"
     checkout main
-    merge release/1.1.0
+    merge release/1.1.0 id: "1. merge into main"
     checkout dev
-    merge main
+    merge main id: "2. merge main into dev"
     checkout dev
     branch feature/feature4  order: 7
     commit id: "feat(function): add feature4"
@@ -73,7 +71,6 @@ gitGraph
     commit id:"fix(function): change2 bug2"
     checkout release/1.2.0
     merge bug/bug2
-    commit id: "release(1.2.0-RC2): prepare migration (backend)"
     commit id: "release(1.2.0-RC2): update version, changelog..." tag: "1.2.0-RC2"
     checkout main
     merge release/1.2.0
@@ -87,7 +84,7 @@ gitGraph
     checkout dev
     merge feature/feature5
     branch release/1.3.0 order: 13
-    commit id: "release(1.3.0): prepare migration (backend)"
+    commit id: "release(1.3.0): aggregate migrations (backend)"
     commit id: "release(1.3.0): update version, changelog..." tag: "1.3.0"
     checkout main
     merge release/1.3.0
@@ -102,7 +99,6 @@ gitGraph
     commit id:"fix(function): change2 bug4"
     checkout release/1.2.0
     merge bug/bug4
-    commit id: "release(1.2.0): prepare migration (backend)"
     commit id: "release(1.2.0): update version, changelog..." tag: "1.2.0"
     checkout main
     merge release/1.2.0
@@ -121,7 +117,6 @@ gitGraph
     commit id:"fix(function): change2 bug5"
     checkout hotfix/1.2.1
     merge bug/bug5
-    commit id: "hotfix(1.2.1): prepare migration (backend)"
     commit id: "hotfix(1.2.1): update version, changelog..." tag: "1.2.1"
     checkout main
     merge hotfix/1.2.1
@@ -129,8 +124,9 @@ gitGraph
     merge main
 ```
 
-## Development flow with Deployment (CI/CD)
+## Notes for Migrations (Backend)
 
-<p align="center">
-<img width="1392" alt="image" src="https://user-images.githubusercontent.com/94133633/220213106-aef633bf-5995-4931-9533-fcfe225e7ec8.png">
-</p>
+Migrations should be **aggregated in the case of releasing a new version**, in order to not release the entire history of migrations which accumulate during the development process.
+
+Once a version has been released, migrations **mustn't be aggregated** in order to ensure upgradeability this also applies to **release candidates > RC1 and hotfixes**.
+Be aware that migrations coming release branches for release candidates or from hotfix branches, will **need to be incorporated into dev and main**.
