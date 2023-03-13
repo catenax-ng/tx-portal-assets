@@ -1,6 +1,6 @@
 # Dev flow with deployment to dev environment
 
-```mermaid
+```mermaid 
 graph LR
     subgraph local
     F(Frontend developer)
@@ -51,7 +51,7 @@ Note**** Sonarcloud runs at pull request, Trivy and KICS scans at merge as well 
 
 Note***** Trivy and KICS scans are scheduled to daily
 
-```mermaid
+```mermaid 
 graph TD;
     A-->B;
     A-->C;
