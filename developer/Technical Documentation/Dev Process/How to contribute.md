@@ -42,7 +42,7 @@ When the implementation is ready, create a PR against the original repository.
 <br>
 
 The PR will get reviewed by the repository owners/official committers.
-As part of the pr review, sonar cloud will run automatically, and unit tests (if configured) will get executed. The PR owner is responsible to check the results and fix possible findings.
+As part of the pr review, sonarcloud will run automatically, and unit tests (if configured) will get executed. The PR owner is responsible to check the results and fix possible findings.
 
 <br>
 
