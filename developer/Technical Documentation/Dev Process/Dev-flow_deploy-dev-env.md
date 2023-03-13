@@ -1,7 +1,7 @@
 # Dev flow with deployment to dev environment
 
 ```mermaid
-graph LR
+flowchart LR
     subgraph local
     F(Frontend developer)
     B(Backend developer)
