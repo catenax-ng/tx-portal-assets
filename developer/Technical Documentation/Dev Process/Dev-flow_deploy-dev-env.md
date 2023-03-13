@@ -35,7 +35,7 @@ flowchart LR
             click CD "https://github.com/eclipse-tractusx/portal-cd"
         end
     end
-    subgraph Argo CD -connected to k8s cluster
+    subgraph Argo CD - sync to k8s cluster
     CD -- auto-sync --> A(Argo CD dev)
     PICD --> A
     click A "https://argo.dev.demo.catena-x.net"
