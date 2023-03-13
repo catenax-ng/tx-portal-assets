@@ -42,7 +42,7 @@ flowchart LR
     end
 ```
 
-Note* Every Pull Request (PR) requires at least one approving review by a peer
+Note* Every pull request (PR) requires at least one approving review by a peer
 
 Note** ESlint, unit tests and Sonarcloud runs at pull request, Trivy and KICS scans at merge as well as daily and Veracode scan runs weekly
 
