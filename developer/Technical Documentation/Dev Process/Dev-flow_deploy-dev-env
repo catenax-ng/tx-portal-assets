@@ -1,7 +1,6 @@
 # Dev flow with deployment to dev environment
 
 ```mermaid
-%%{init: { 'logLevel': 'debug', 'theme': 'base' } }%%
 flowchart LR
     subgraph local
     F(Frontend developer)
@@ -11,9 +10,9 @@ flowchart LR
     subgraph eclipse-tractusx or fork
         direction LR
         subgraph CI repos
-            F -- PR to dev* --> PF(portal-frontend)
-            F -- PR to dev* --> PR(portal-registration)
-            F -- PR* to main --> PA(portal-assets)
+            F -- PR to dev* --> PF(portal-frontend**)
+            F -- PR to dev* --> PR(portal-registration**)
+            F -- PR* to main --> PA(portal-assets**)
             B -- PR* to dev--> PB(portal-backend***)
             click PF "https://github.com/eclipse-tractusx/portal-frontend"
             click PR "https://github.com/eclipse-tractusx/portal-frontend-registration"
@@ -22,12 +21,14 @@ flowchart LR
         end
         subgraph CI+CD repo
             direction TB
-            D -- PR** --> PI(portal-iam)
+            D -- PR to main for !=charts** --> PI(portal-iam****)
+            D -- PR to helm-environments for charts** --> PI
+            PI --> PICD(portal-iam -b helm-environments)
             click PI "https://github.com/eclipse-tractusx/portal-iam"
         end
         subgraph CD repo for auto-deploy to dev
             direction LR
-            PF --> CD(portal-cd -b helm-environments)
+            PF --> CD(portal-cd -b helm-environments*****)
             PR --> CD
             PB --> CD
             PA --> CD
@@ -36,6 +37,7 @@ flowchart LR
     end
     subgraph Argo CD -connected to k8s cluster
     CD -- auto-sync --> A(Argo CD dev)
+    PICD --> A
     click A "https://argo.dev.demo.catena-x.net"
     end
 ```
@@ -44,8 +46,6 @@ Note* Every Pull Request (PR) requires at least one approving review by a peer
 Note** ESlint, unit tests and Sonarcloud runs at pull request, Trivy and KICS scans at merge as well as daily and Veracode scan runs weekly
 
 Note*** Unit tests and Sonarcloud runs at pull request, Trivy and KICS scans at merge as well as daily and Veracode scan runs weekly
-
-Note*** Sonarcloud runs at pull request, Trivy and KICS scans at merge as well as daily and Veracode scan runs weekly
 
 Note**** Sonarcloud runs at pull request, Trivy and KICS scans at merge as well as daily
 
