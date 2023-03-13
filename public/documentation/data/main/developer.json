@@ -53,22 +53,22 @@
               "path": "developer/01. Onboarding/02. Registration/02. Add Company Data.md",
               "name": "02. Add Company Data.md",
               "chapter": [
-                "# Implementation",
-                "## Enter / Verify Company Data",
-                "#### API Details",
-                "##### Display Company Data Registration Details (pre-saved)",
-                "###### a) via BPN search and automatic data load",
-                "###### a) adding the data manually",
+                "## Add Company Data",
+                "## Functional View",
+                "## Implementation View",
+                "### Enter Company Data",
+                "#### a) via BPN search and automatic data load",
+                "#### b) manually entered",
                 "##### Unique Identifier",
-                "##### Logic implemented for the country specific identifier",
-                "###### API Response",
+                "###### Logic implemented for the country specific identifier",
                 "###### Result on UI",
                 "#A - no unique identifier",
                 "#B - only one unique identifier (happy path)",
                 "#C - multiple identifier",
                 "###### Implemented Pattern",
                 "###### POST allowed Unique Identifier",
-                "##### Store / Save Company Data Registration Details"
+                "### Store/Save Company Data",
+                "### Display Company Data (pre-saved)"
               ]
             },
             {
@@ -112,6 +112,20 @@
                 "## Verify your data",
                 "##### #1 Get application data",
                 "##### #2 Submit Registration"
+              ]
+            },
+            {
+              "path": "developer/01. Onboarding/02. Registration/07. Error Scenarios.md",
+              "name": "07. Error Scenarios.md",
+              "chapter": [
+                "## Error Scenarios",
+                "### System Availability",
+                "### 1 Login",
+                "### 2 Company Data",
+                "### 3 Invite Users",
+                "### 4 Company Role and Terms&Conditions",
+                "### 5 Document Load",
+                "### 6 Verify Data"
               ]
             }
           ]
@@ -563,11 +577,22 @@
           "name": "02. App Release Process",
           "children": [
             {
+              "path": "developer/04. Apps/02. App Release Process/04. Delete App.md",
+              "name": "04. Delete App.md",
+              "chapter": [
+                "## Summary",
+                "## Implementation",
+                "### Delete App",
+                "##### Validation",
+                "##### Logic:"
+              ]
+            },
+            {
               "path": "developer/04. Apps/02. App Release Process/App Release Process.md",
               "name": "App Release Process.md",
               "chapter": [
-                "# Summary",
-                "# Implementation",
+                "## Summary",
+                "## Implementation",
                 "#### Trigger the Publishing Process",
                 "#### Step 1 - App Card Details",
                 "##### Implementation Details",
@@ -576,29 +601,27 @@
                 "###### #2 Get Use Cases",
                 "###### #3 Get Sales Manager",
                 "###### #4 GET/POST App LeadImage",
-                "###### #5 Create App",
+                "###### #5 DELETE Image",
+                "###### #6 Create App",
                 "#### Step 2 - App Page Details",
                 "##### Implementation Details",
                 "##### API Details",
-                "###### #1 ...",
-                "###### #2 ...",
-                "###### #3 ...",
+                "###### #1 Update App Details",
+                "###### #2 DELETE Image/Documents",
                 "#### Step 3 - Terms & Conditions / Consent",
-                "##### Implementation Details",
+                "###### #1 Retrieve Terms & Conditions",
+                "###### #2 Upload document",
+                "#### Step 4 - Integration - Role Upload",
                 "##### API Details",
-                "###### #1 ...",
-                "#### Step 4 - Tenant Concept and Integration",
-                "##### Implementation Details",
-                "##### API Details",
-                "###### #1 ...",
+                "###### #1 Upload Roles",
+                "###### #2 Delete Roles",
                 "#### Step 5 - Beta Test Runs",
-                "##### Implementation Details",
-                "##### API Details",
-                "###### #1 ...",
                 "#### Step 6 - Validate & Submit for Publishing check",
                 "##### Implementation Details",
                 "##### API Details",
-                "###### #1 ..."
+                "###### #1 Get App Details",
+                "###### #2 Submit App for Marketrelease",
+                "###### #3 Download Document"
               ]
             }
           ]
@@ -892,7 +915,8 @@
                 "#### App DB Connection",
                 "#### App Images",
                 "#### App Release Date",
-                "#### App Use Case"
+                "#### App Use Case",
+                "#### App Privacy Policy"
               ]
             },
             {
@@ -900,6 +924,16 @@
               "name": "Connector - DB - View.md",
               "chapter": [
                 "## Connector DB"
+              ]
+            },
+            {
+              "path": "developer/Technical Documentation/DB Views and Details/Data Management.md",
+              "name": "Data Management.md",
+              "chapter": [
+                "## Categories of Data",
+                "## Master Data",
+                "## Transactional Data",
+                "## Layering Concept on Keycloak side"
               ]
             },
             {
@@ -943,6 +977,18 @@
                 "### #3 Create a fork",
                 "### #4 Fork setup",
                 "### #5 Fork work & commit"
+              ]
+            },
+            {
+              "path": "developer/Technical Documentation/Dev Process/05. Run frontend on localhost.md",
+              "name": "05. Run frontend on localhost.md",
+              "chapter": [
+                "# Frontend Environment",
+                "## Introduction",
+                "## Set up a local development environment",
+                "#### 1. Start the portal webserver instance on local port 3001",
+                "#### 2. Start the registration app webserver instance on local port 3002",
+                "#### 3. Start the reverse proxy and assets webserver instance on ports 3000 and 3003"
               ]
             },
             {
@@ -1034,7 +1080,9 @@
                 "#### Role Management",
                 "### User Attributes",
                 "#### bpn-mapper",
-                "#### username-mapper"
+                "#### username-mapper",
+                "### View Users in a realm",
+                "### Create New User"
               ]
             },
             {
