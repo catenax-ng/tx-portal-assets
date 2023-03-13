@@ -1,6 +1,6 @@
 # Dev flow with deployment to dev environment
 
-```mermaid 
+```mermaid
 graph LR
     subgraph local
     F(Frontend developer)
@@ -21,8 +21,8 @@ graph LR
         end
         subgraph CI+CD repo
             direction TB
-            D -- PR to main for !=charts** --> PI(portal-iam****)
-            D -- PR to helm-environments for charts** --> PI
+            D -- PR* to main for !=charts --> PI(portal-iam****)
+            D -- PR* to helm-environments for charts --> PI
             PI --> PICD(portal-iam -b helm-environments)
             click PI "https://github.com/eclipse-tractusx/portal-iam"
         end
@@ -41,6 +41,7 @@ graph LR
     click A "https://argo.dev.demo.catena-x.net"
     end
 ```
+
 Note* Every Pull Request (PR) requires at least one approving review by a peer
 
 Note** ESlint, unit tests and Sonarcloud runs at pull request, Trivy and KICS scans at merge as well as daily and Veracode scan runs weekly
@@ -50,11 +51,3 @@ Note*** Unit tests and Sonarcloud runs at pull request, Trivy and KICS scans at 
 Note**** Sonarcloud runs at pull request, Trivy and KICS scans at merge as well as daily
 
 Note***** Trivy and KICS scans are scheduled to daily
-
-```mermaid 
-graph TD;
-    A-->B;
-    A-->C;
-    B-->D;
-    C-->D;
-```
