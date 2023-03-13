@@ -50,3 +50,11 @@ Note*** Unit tests and Sonarcloud runs at pull request, Trivy and KICS scans at 
 Note**** Sonarcloud runs at pull request, Trivy and KICS scans at merge as well as daily
 
 Note***** Trivy and KICS scans are scheduled to daily
+
+```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
