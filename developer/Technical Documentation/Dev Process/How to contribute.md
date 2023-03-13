@@ -1,7 +1,7 @@
 ## Contribution details
 
 To contribute to the portal as part of the open source community, please read the details defined below.
-Besides a generic "how to", some commit and pull request (PR) guidelines are defined to ensure readability and make newly created PRs more easy to review. Additionally, changelogs can get validated as well as written more easily and across the huge contributor community similar patterns are used.
+Besides a generic "how to", some commit and pull request (PR) guidelines are defined to ensure readability and make newly created PRs easier to review. Additionally, changelogs can get validated as well as written with more ease. Moreover, similar patterns are in use across the contributor community.
 
 <br>
 <strong>Content:</strong>
