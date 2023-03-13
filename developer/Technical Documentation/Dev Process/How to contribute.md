@@ -26,7 +26,7 @@ Open github - "eclipse-tractusx" project and select the respective repository to
 
 #### #2 Fork setup
 
-Setup your fork by entering a name and make sure that you unselect the "main branch only" selection, in case the original repo has a dev and a main branch.
+Setup your fork by entering a name and make sure that you unselect the "main branch only" selection, in case the original repository has a dev and a main branch.
 
 <br>
 
@@ -41,7 +41,7 @@ When the implementation is ready, create a PR against the original repository.
 
 <br>
 
-The PR will get reviewed by the repo owners/official committers.
+The PR will get reviewed by the repository owners/official committers.
 As part of the pr review, sonar cloud will run automatically, and unit tests (if configured) will get executed. The PR owner is responsible to check the results and fix possible findings.
 
 <br>
@@ -52,7 +52,7 @@ As part of the pr review, sonar cloud will run automatically, and unit tests (if
 
 #### Commits
 
-We suggest the usage of [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
+The suggestion is to use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
 Here are some examples
 
@@ -106,13 +106,8 @@ gitGraph
     commit id: "release(1.1.0): aggregate migrations (backend)"
     commit id: "release(1.1.0): update version, changelog..." tag: "1.1.0"
     checkout release/1.1.0
-    branch hotfix/1.2.1 order: 3
-    checkout hotfix/1.2.1
-    branch bug/bug1 order: 4
-    commit id:"fix(function): change2 bug1"
-    checkout hotfix/1.2.1
-    merge bug/bug1
-    commit id: "hotfix(1.2.1): update version, changelog..." tag: "1.2.1"
+    branch hotfix/1.1.1 order: 3
+    commit id: "hotfix(1.1.1): update version, changelog..." tag: "1.1.1"
 ```
 
 <br>
