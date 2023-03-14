@@ -3,17 +3,15 @@
 ```mermaid
 flowchart LR
     subgraph local
-    F(Frontend developer)
-    B(Backend developer)
     D(Developer)
     end
     subgraph eclipse-tractusx or fork
         direction LR
         subgraph CI repos
-            F -- PR to dev* --> PF(portal-frontend**)
-            F -- PR to dev* --> PR(portal-registration**)
-            F -- PR* to main --> PA(portal-assets**)
-            B -- PR* to dev--> PB(portal-backend***)
+            D -- PR to dev* --> PF(portal-frontend**)
+            D -- PR to dev* --> PR(portal-registration**)
+            D -- PR* to main --> PA(portal-assets**)
+            D -- PR* to dev--> PB(portal-backend***)
             click PF "https://github.com/eclipse-tractusx/portal-frontend"
             click PR "https://github.com/eclipse-tractusx/portal-frontend-registration"
             click PA "https://github.com/eclipse-tractusx/portal-assets"
@@ -22,16 +20,17 @@ flowchart LR
         subgraph CI+CD repo
             direction TB
             D -- PR* to main for !=charts --> PI(portal-iam****)
-            D -- PR* to helm-environments for charts --> PI
+            D -- PR* to -b helm-environments for charts --> PI
             PI --> PICD(portal-iam -b helm-environments)
             click PI "https://github.com/eclipse-tractusx/portal-iam"
         end
         subgraph CD repo for auto-deploy to dev
             direction LR
-            PF --> CD(portal-cd -b helm-environments*****)
+            PF --> CD(portal-cd***** -b helm-environments)
             PR --> CD
             PB --> CD
             PA --> CD
+            D -- PR* to -b helm-environments for chart --> CD
             click CD "https://github.com/eclipse-tractusx/portal-cd"
         end
     end
