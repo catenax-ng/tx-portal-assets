@@ -961,34 +961,18 @@
           "name": "Dev Process",
           "children": [
             {
-              "path": "developer/Technical Documentation/Dev Process/01. Development-Deployment (CI-CD).md",
-              "name": "01. Development-Deployment (CI-CD).md",
+              "path": "developer/Technical Documentation/Dev Process/Dev-flow_deploy-dev-env.md",
+              "name": "Dev-flow_deploy-dev-env.md",
               "chapter": [
-                "## Development / Deployment (CI/CD)"
+                "# Dev flow with deployment to dev environment"
               ]
             },
             {
-              "path": "developer/Technical Documentation/Dev Process/02. How to contribute.md",
-              "name": "02. How to contribute.md",
+              "path": "developer/Technical Documentation/Dev Process/Dev-flow_git-diagram.md",
+              "name": "Dev-flow_git-diagram.md",
               "chapter": [
-                "## Contribution details",
-                "### #1 Login",
-                "### #2 Open the repo",
-                "### #3 Create a fork",
-                "### #4 Fork setup",
-                "### #5 Fork work & commit"
-              ]
-            },
-            {
-              "path": "developer/Technical Documentation/Dev Process/05. Run frontend on localhost.md",
-              "name": "05. Run frontend on localhost.md",
-              "chapter": [
-                "# Frontend Environment",
-                "## Introduction",
-                "## Set up a local development environment",
-                "#### 1. Start the portal webserver instance on local port 3001",
-                "#### 2. Start the registration app webserver instance on local port 3002",
-                "#### 3. Start the reverse proxy and assets webserver instance on ports 3000 and 3003"
+                "# Dev flow (git diagram)",
+                "## Notes for Migrations (Backend)"
               ]
             },
             {
@@ -1002,6 +986,21 @@
               ]
             },
             {
+              "path": "developer/Technical Documentation/Dev Process/How to contribute.md",
+              "name": "How to contribute.md",
+              "chapter": [
+                "# Contribution details",
+                "## How To Contribute",
+                "### 1 Create a fork",
+                "### 2 Fork setup",
+                "### 3 Commit",
+                "## Commit and PR guidelines",
+                "### Commits",
+                "### PR title",
+                "### PR description"
+              ]
+            },
+            {
               "path": "developer/Technical Documentation/Dev Process/Multi Language.md",
               "name": "Multi Language.md",
               "chapter": [
@@ -1010,6 +1009,18 @@
                 "## Technical Implementation",
                 "### Portal-Registration",
                 "### CX-Portal"
+              ]
+            },
+            {
+              "path": "developer/Technical Documentation/Dev Process/Run frontend on localhost.md",
+              "name": "Run frontend on localhost.md",
+              "chapter": [
+                "# Run frontend locally",
+                "## Introduction",
+                "## Set up a local development environment",
+                "#### 1. Start the portal webserver instance on local port 3001",
+                "#### 2. Start the registration app webserver instance on local port 3002",
+                "#### 3. Start the reverse proxy and assets webserver instance on ports 3000 and 3003"
               ]
             }
           ]
@@ -1355,8 +1366,8 @@
               ]
             },
             {
-              "path": "developer/Technical Documentation/Operations/test.md",
-              "name": "test.md",
+              "path": "developer/Technical Documentation/Operations/Tests.md",
+              "name": "Tests.md",
               "chapter": [
                 "## Summary",
                 "## Unit Tests",

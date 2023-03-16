@@ -20,6 +20,7 @@
 import { clear, addEvents, N, Viewable, NavTools } from "./Toolkit.js"
 import { state } from "./State.js"
 import { Patterns, Settings } from "./Settings.js"
+import mermaid from "./lib/mermaid/mermaid.esm.min.mjs"
 
 const normalize = (path) => path.replace(/[^a-zA-Z0-9_-]/g, '_')
 
@@ -397,7 +398,12 @@ class Content extends Viewable {
         state.addMenuOpenListener(this)
         this.breadcrumb = new Breadcrumb()
         this.markdown = N('script', ' ', { type: 'text/markdown' })
-        this.page = N('zero-md', this.markdown)
+        this.page = addEvents(
+            N('zero-md', this.markdown),
+            {
+                'zero-md-ready': this.pageReady.bind(this)
+            }
+        )
         this.loader = N('div', '', { class: 'loader hidden' })
         this.view = N('article', [
             N('div', [
@@ -416,6 +422,37 @@ class Content extends Viewable {
     selectionChanged(selection, content) {
         this.breadcrumb.selectionChanged(selection, content)
         return this.renderArticle(content)
+    }
+
+    getRoot() {
+        return this.page
+    }
+
+    getMD() {
+        return this.page.lastChild.firstChild.data
+    }
+
+    pageReady() {
+    }
+
+    pageHasLoaded() {
+        this.replaceLinks()
+        //this.renderMermaid()
+    }
+
+    renderMermaidDef(node, def) {
+        node.replaceWith(
+            N('pre', def, { class: 'mermaid' })
+        )
+    }
+
+    renderMermaid() {
+        const blocks = [...this.page.shadowRoot.querySelectorAll('pre.language-mermaid')]
+        const defs = this.page.lastChild.firstChild.data.split('```').filter((block) => block.startsWith('mermaid')).map(block => block.substring(8))
+        //console.log(blocks)
+        //console.log(defs)
+        blocks.forEach((block, i) => this.renderMermaidDef(block,defs[i]))
+        mermaid.initialize({logLevel: 'info', startOnLoad: true})
     }
 
     replacePage(page) {
@@ -482,25 +519,35 @@ class Content extends Viewable {
 
     filterText(text) {
         const path = state.selection.split('/').map(encodeURIComponent).join('/')
-        return text.replaceAll('](.',`](${Settings.DOCBASE}/${state.releaseSelection}/${path}`)
+        return text.replaceAll('](.', `](${Settings.DOCBASE}/${state.releaseSelection}/${path}`)
     }
 
     mdFromText(text) {
         const filterText = this.filterText(text)
         this.replacePage(
-            N('zero-md', N('script', filterText, { type: 'text/markdown' }))
+            addEvents(
+                N('zero-md', N('script', filterText, { type: 'text/markdown' })),
+                {
+                    'zero-md-ready': this.pageReady.bind(this),
+                }
+            )
         )
-        setTimeout(this.replaceLinks.bind(this), 100)
+        setTimeout(this.pageHasLoaded.bind(this), 100)
         this.loader.classList.add('hidden')
         return this
     }
 
     mdFromURL(url) {
         this.replacePage(
-            N('zero-md', null, { src: url })
+            addEvents(
+                N('zero-md', null, { src: url }),
+                {
+                    'zero-md-ready': this.pageReady.bind(this)
+                }
+            )
         )
         // we don't get an onload event from zero-md so waiting one sec before replacing the links
-        setTimeout(this.replaceLinks.bind(this), 1000)
+        setTimeout(this.pageHasLoaded.bind(this), 1000)
         return this
     }
 
@@ -583,7 +630,7 @@ class App extends Viewable {
         state.setReleaseSelection(releases[0].name)
     }
 
-    releaseSelectionChanged(releaseSelection) {        
+    releaseSelectionChanged(releaseSelection) {
         fetch(`data/${releaseSelection.split('/').slice(-1)[0]}/${NavTools.getRoot()}.json`)
             .then(response => response.json())
             .then(state.setData.bind(state))
