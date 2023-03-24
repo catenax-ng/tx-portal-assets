@@ -165,5 +165,16 @@ Response Body
 <br>
 <br>
 
+## Checklist Worker
+
+| Process Step | Description | Success Scenario | Error (process_step status FAILED) | Auto Retrigger? | Manual Retrigger? | Possible Following Steps |
+|---|---|---|---|---|---|---|
+| 100<br>Trigger Provider | Portal triggers the Offer Provider URL (if provider url is stored) | If the provider endpoint is responding with 20x <br>the process step will get set to "DONE" | ?? | Yes, in case of an 5xx | Yes, in case of an 4xx <br>(new, in the ticket I asked to autoretrigger, but maybe thats not possible) | #101 |
+| 101<br>Start Autosetup | Provider is triggering the portal autosetup endpoint with necessary offer details<br>the step will trigger the portal internal autosetup jobs (102, 103, 104, 105) | The process step is set to "DONE" <br>with successful endpoint request body | In case anything mandatory of the request body is missing | - | As long as the step is in statsu "TO_DO" the provider can retrigger the endpoint | Apps: #102 <br>Services: #104 |
+| 102<br>OfferSubscription Client Creation | Created app client in Keycloak and DB, additionally app instance is getting created | The process step is set to "DONE" <br>after all records are created | Status "FAILED" if job was running on fail | Yes, in case of an 5xx | Yes, in case of an 4xx | #104 <br>#105 |
+| 103<br>Single Instance Subscription Details Creation | Single Instance Subscription Details Creation | The process step is set to "DONE" <br>after subscription record got successfully created - Status "PENDING" | | Yes, in case of an 5xx (db issue) | - | #105 |
+| 104<br>xxx | Technical User creation in keycloak and metadata storage in portal db | The process step is set to "DONE" <br>after technical user ot successfully created | xxx | Yes, in case of an 5xx | Yes, in case of an 4xx | #105 |
+| 105<br>xxx | Subscription record activation, notification creation and send email. | The process step is set to "DONE" <br>after xxx | xxx | Yes, in case of an 5xx | Yes, in case of an 4xx | Multi Instance: #106 <br> Single Instance: - |
+| 106<br>Trigger Provider Callback | Trigger provider callback url to share client and utech user. | The process step is set to "DONE" <br>after xxx | xxx | Yes, in case of an 5xx | Yes, in case of an 4xx | - |
 
 
