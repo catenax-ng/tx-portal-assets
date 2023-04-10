@@ -434,7 +434,6 @@ class Content extends Viewable {
     }
 
     pageHasLoaded() {
-        console.log('try...')
         if (!this.page.shadowRoot.styleSheets[0]) {
             setTimeout(this.pageHasLoaded.bind(this), 10)
             return
