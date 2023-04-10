@@ -398,19 +398,16 @@ class Content extends Viewable {
         state.addMenuOpenListener(this)
         this.breadcrumb = new Breadcrumb()
         this.markdown = N('script', ' ', { type: 'text/markdown' })
-        this.page = addEvents(
-            N('zero-md', this.markdown),
-            {
-                'zero-md-ready': this.pageReady.bind(this)
-            }
-        )
-        this.loader = N('div', '', { class: 'loader hidden' })
+        this.page = N('zero-md', this.markdown),
+            this.loader = N('div', '', { class: 'loader hidden' })
+        this.diags = N('div', null, { style: 'visibility: hidden' })
         this.view = N('article', [
             N('div', [
                 this.breadcrumb,
                 this.loader,
             ]),
             this.page,
+            this.diags,
         ], { class: 'content small' })
     }
 
@@ -432,27 +429,43 @@ class Content extends Viewable {
         return this.page.lastChild.firstChild.data
     }
 
-    pageReady() {
+    zeromdReady() {
+        this.pageHasLoaded()
     }
 
     pageHasLoaded() {
+        console.log('try...')
+        if (!this.page.shadowRoot.styleSheets[0]) {
+            setTimeout(this.pageHasLoaded.bind(this), 10)
+            return
+        }
         this.replaceLinks()
-        //this.renderMermaid()
+        this.renderMermaid()
     }
 
-    renderMermaidDef(node, def) {
-        node.replaceWith(
-            N('pre', def, { class: 'mermaid' })
-        )
+    async renderMermaidDef(node, def) {
+        const diag = N('pre', def, { class: 'mermaid' })
+        this.diags.appendChild(diag)
+        try {
+            await mermaid.run({
+                nodes: [diag]
+            })
+            node.replaceWith(diag)
+        } catch (e) {
+            console.log(e)
+            this.diags.removeChild(diag)
+        }
+        return diag
     }
 
-    renderMermaid() {
+    async renderMermaid() {
         const blocks = [...this.page.shadowRoot.querySelectorAll('pre.language-mermaid')]
+        if (blocks.length === 0) {
+            return
+        }
         const defs = this.page.lastChild.firstChild.data.split('```').filter((block) => block.startsWith('mermaid')).map(block => block.substring(8))
-        //console.log(blocks)
-        //console.log(defs)
-        blocks.forEach((block, i) => this.renderMermaidDef(block,defs[i]))
-        mermaid.initialize({logLevel: 'info', startOnLoad: true})
+        mermaid.initialize()
+        blocks.forEach((block, i) => this.renderMermaidDef(block, defs[i]))
     }
 
     replacePage(page) {
@@ -488,7 +501,7 @@ class Content extends Viewable {
     }
 
     replaceLink(link) {
-        const path = decodeURI(link.href).replace(/^.*docs\//,'docs/').replace(/\/$/, '')
+        const path = decodeURI(link.href).replace(/^.*docs\//, 'docs/').replace(/\/$/, '')
         link.setAttribute('href', `.?path=${encodeURI(path)}`)
         return link
     }
@@ -521,29 +534,19 @@ class Content extends Viewable {
     mdFromText(text) {
         const filterText = this.filterText(text)
         this.replacePage(
-            addEvents(
-                N('zero-md', N('script', filterText, { type: 'text/markdown' })),
-                {
-                    'zero-md-ready': this.pageReady.bind(this),
-                }
-            )
+            N('zero-md', N('script', filterText, { type: 'text/markdown' }))
         )
-        setTimeout(this.pageHasLoaded.bind(this), 100)
+        setTimeout(this.pageHasLoaded.bind(this), 10)
         this.loader.classList.add('hidden')
         return this
     }
 
     mdFromURL(url) {
         this.replacePage(
-            addEvents(
-                N('zero-md', null, { src: url }),
-                {
-                    'zero-md-ready': this.pageReady.bind(this)
-                }
-            )
+            N('zero-md', null)
         )
         // we don't get an onload event from zero-md so waiting one sec before replacing the links
-        setTimeout(this.pageHasLoaded.bind(this), 1000)
+        setTimeout(this.pageHasLoaded.bind(this), 10)
         return this
     }
 
