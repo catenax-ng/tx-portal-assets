@@ -371,9 +371,55 @@ Deletion Flow (if all validations have been successful):
 <br>
 <br>
 
+###### #3 Display PrivacyPolicies
+
+Privacy Policy options/enums are fetched from the portal db to display the select option to the user.
+
+```diff
+! GET /api/apps/appreleaseprocess/privacyPolicies
+```
+
+<br>
+
+    {
+      "privacyPolicies": [
+        "COMPANY_DATA"
+      ]
+    }
+
+<br>
+
+following translation for the privacy policy tags
+
+DB Response | UI Tag Name 
+--- | --- 
+"COMPANY_DATA“ | Company Data
+"USER_DATA“ | User Data 
+"LOCATION" | Location 
+"BROWSER_HISTORY"	| Browser History 
+"NONE"	| None 
+
+<br>
+
+Design:
+
+<img width="676" alt="image" src="https://user-images.githubusercontent.com/94133633/229377043-5572bcde-a84c-41de-a44e-0f8115539a83.png">
+
+<br>
+
+In case the privacy policies can not get loaded, the response will look like defined below:
+
+<img width="658" alt="image" src="https://user-images.githubusercontent.com/94133633/229377086-7529cb89-4df4-442c-a531-13483c308554.png">
+
+
+<br>
+<br>
+
 #### Step 3 - Terms & Conditions / Consent
 
 <img width="576" alt="image" src="https://user-images.githubusercontent.com/94133633/223786562-6cc80a68-5299-4708-bc1d-1899dcf3cd23.png">
+
+Depending on the response of the endpoint #1 GET agreements, the user will be enabled to download related documents from the portal to read through the relevant agreement details. Expected formats are pdf, however other formats can get supported as well.
 
 <br>
 
@@ -396,8 +442,40 @@ Response Body
       }
     ]
 
+<br>
 
-###### #2 Upload document
+Style
+
+If documentId inside response body is != NULL display the respective agreement as link - example:
+
+<img width="591" alt="image" src="https://user-images.githubusercontent.com/94133633/227883098-1043fd68-3461-4318-9c02-bbddf9ca8719.png">
+
+<br>
+
+If the documentId is NULL, the agreement is displayed without link (as currently implemented) - example:
+
+<img width="590" alt="image" src="https://user-images.githubusercontent.com/94133633/227883308-8d933e1f-7b57-4bb4-a67d-4aed662c6d21.png">
+
+<br>
+<br>
+
+###### #2 Retrieve Documents
+Terms and Conditions with an document ID in API endpoint #1 can get retrieved via the document endpoint GET /frameDocuments/{documentId}
+
+```diff
+Get: /api/administration/documents/frameDocuments/{documentId}
+```
+
+<br>
+
+Response Body
+
+    document file
+
+<br>
+<br>
+
+###### #3 Upload Document
 The user has to upload the app conformity document.
 
 ```diff
@@ -405,6 +483,16 @@ The user has to upload the app conformity document.
 ```
 
 Type: CONFORMITY_APPROVAL_BUSINESS_APPS
+
+<br>
+
+###### #4 DELETE Document
+In case the user identifiers that a wrong document got uploaded in the respective step, the DELETE endpoint is used to delete doucments linked to the app.
+Important: the deletion is not reversable - since the app is still under DRAFT, all app related details will get deleted immediately.
+
+```diff
+! Delete: /api/apps/appreleaseprocess/documents/{documentId}
+```
 
 <br>
 <br>
@@ -478,7 +566,7 @@ Only a preview for now
 
 #### Step 6 - Validate & Submit for Publishing check
 
-<image></image>
+<img width="224" alt="image" src="https://user-images.githubusercontent.com/94133633/227897141-2c901956-f60d-4880-839f-682cfcc307d2.png">
   
 <text></text>
 
@@ -506,10 +594,13 @@ Description
     {
       "title": "string",
       "provider": "string",
-      "leadPictureId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      "leadPictureId": "uuid",
       "providerName": "string",
       "useCase": [
-        "string"
+        {
+          "id": "uuid",
+          "label": "string"
+        }
       ],
       "descriptions": [
         {
@@ -520,7 +611,7 @@ Description
       ],
       "agreements": [
         {
-          "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+          "id": "uuid",
           "name": "string",
           "consentStatus": "string"
         }
@@ -530,7 +621,7 @@ Description
       ],
       "price": "string",
       "images": [
-        "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+        "uuid"
       ],
       "providerUri": "string",
       "contactEmail": "string",
@@ -538,24 +629,12 @@ Description
       "documents": {
         "additionalProp1": [
           {
-            "documentId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-            "documentName": "string"
-          }
-        ],
-        "additionalProp2": [
-          {
-            "documentId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-            "documentName": "string"
-          }
-        ],
-        "additionalProp3": [
-          {
-            "documentId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "documentId": "uuid",
             "documentName": "string"
           }
         ]
       },
-      "salesManagerId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      "salesManagerId": "uuid",
       "privacyPolicies": [
         e.g. "COMPANY_DATA"
       ]
@@ -575,10 +654,11 @@ Description
 <br>
 
 ###### #3 Download Document
-Description
+Conformity Document as well as the app specific documents can get downloaded by the user by clicking on the document name.
+The GET document endpoint is getting triggered and document downloaded.
 
 ```diff
-! tbd
+! GET /api/apps/{appId}/appDocuments/{documentId}
 ```
 
 <br>

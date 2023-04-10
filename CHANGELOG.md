@@ -2,10 +2,76 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal Assets.
 
-## Unreleased
+## 1.3.0 RC2
 
-* Technical Support
-  * reverse proxy server to run the entire portal frontend on local machine
+### Change
+* User Docu
+  * App Release Process documentation enhanced (privacy policy function, document handling, improved/enhanced docu in general)
+* Developer
+  * App Release Process documentation enhanced (privacy policy function, document handling, improved/enhanced docu in general)
+  * Document Service documentation enhanced
+
+### Feature
+* Developer Docu
+  * Company Config - Preferred Use Case docu released
+  * User role assignment (apps and portal roles)
+* User Docu
+  * User role assignment - change user roles "how to" released (apps and portal roles)
+  * Service Release Process - released process "how to"
+
+### Technical Support
+n/a
+
+### Bugfix
+* User & DevDocu
+  * Technical User Profile Matrix corrected (permission assignment overview)
+
+## 1.3.0 RC1
+
+### Change
+* User Docu
+  * user management -> technical user -> FAQ updated with details to technical user token creation
+* Developer
+  * release process documentation enhanced (license checks & publish shared-ui-components to npm)
+  * roles & rights matrix updated (technical user)
+  * technical user roles architecture portal, portal db and keycloak connection - visualization image updated
+  * user management -> technical user -> FAQ added with details to technical user token creation
+  * app release process enhanced (fetch portal frame documents, verify app details, delete documents)
+
+### Feature
+n/a
+
+### Technical Support
+* added temp fix for CVE-2023-0464
+* added build workflow for v1.3.0 release candidate phase
+* updated actions workflows
+
+### Bugfix
+n/a
+
+## 1.2.0
+
+### Change
+* User Docu
+  * service release process enhanced
+* Developer
+  * updated developer contribution process introduction
+  * enhanced details on app marketplace implementations
+  * enhanced app admin board operator implementation details
+
+### Feature
+* User Docu
+  * added user role description details/role matrix
+* Developer
+  * multi-branch developer process released
+
+### Technical Support
+* reverse proxy server to run the entire portal frontend on local machine
+* trg: added repo metafile
+* trivy: fixed container registry
+
+### Bugfix
+n/a
 
 ## 1.1.0
 
