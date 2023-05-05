@@ -21,7 +21,7 @@ Each section includes the respective change details, impact on existing data and
 New technical_user_profiles table released to provide technical user profiles for apps and dataspace services.
 New technical_user_assigned_user_roles table to assign multiple roles to a technical user proile.
 
-To add technical user profiles with a specific user role for apps or dataspace services you can use the following script, please make sure the ids used in appTechnicalUserRole and serviceTechnicalUserRole are correct and existing in the database:
+Until the corresponding endpoint is implemented to add technical user profiles, you can use the following script, please make sure the ids used in appTechnicalUserRole and serviceTechnicalUserRole are correct and existing in the database:
 
 ``` sql
 DO $$
