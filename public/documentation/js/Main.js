@@ -399,14 +399,12 @@ class Content extends Viewable {
         this.markdown = N('script', ' ', { type: 'text/markdown' })
         this.page = N('zero-md', this.markdown)
         this.loader = N('div', '', { class: 'loader hidden' })
-        this.diags = N('div', null, { style: 'visibility: hidden' })
         this.view = N('article', [
             N('div', [
                 this.breadcrumb,
                 this.loader,
             ]),
             this.page,
-            this.diags,
         ], { class: 'content small' })
     }
 
