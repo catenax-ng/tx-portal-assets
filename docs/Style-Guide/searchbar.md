@@ -30,6 +30,8 @@ Ensure that the user can terminate the serach with a cancel button.
 * Don't offer advanced search as the default option. The majority of people will do a simple search with one or two search terms. If advanced search is offered, it increases the likelihood of a person making a mistake in their query.
 * Even if the search bar isn't visually displaying a label, the form field should include a label for screen reader users.
 * The search button itself should be a submit button for the form to reduce the number of keystrokes required to use the form.
+* When submitting the search value, the search bar should still stay active that the user can further add characters inside the search field without clicking on the field again
+* The search field should always have a clear button as soon as first serach is triggered (automatically)
 
 <br>
 <br>
